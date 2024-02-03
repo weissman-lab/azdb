@@ -1,0 +1,6 @@
+creds.yaml
+.DS_Store
+__pycache__/
+*~
+build/
+*.egg-info/
