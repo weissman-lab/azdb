@@ -47,3 +47,17 @@ def RunSQLnoResults(query, conn, catalog = "source_sys", database = "raw_clarity
     res = cursor.execute(query)
     cursor.execute(query)
     return (None)
+
+def RunSQLfileNoResults(sqlFile, conn, params = {}, catalog = "source_sys", database = "raw_clarity"):
+    '''Run a query from a SQL file with params using a connection conn and return
+    no results, e.g. creating a temp view'''
+    with open(sqlFile) as f:
+        raw_query = f.read()
+    query = raw_query.format(**params)
+    cursor = conn.cursor()
+    cursor.execute(f"USE CATALOG {catalog}")
+    cursor.execute(f"USE DATABASE {database}")
+    res = cursor.execute(query)
+    # Clean up
+    cursor.close()
+    return (None)
